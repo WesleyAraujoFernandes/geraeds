@@ -77,7 +77,7 @@ public class Titulo {
     // Foreign keys above
     // private String editora;
     @Column(name = "id_idioma")
-    private Integer idioma;
+    private Idioma idioma;
     /*
      * @Column(name = "str_isbn")
      * private String isbn;

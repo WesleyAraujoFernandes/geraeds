@@ -10,6 +10,7 @@ import org.marc4j.marc.Leader;
 import org.marc4j.marc.MarcFactory;
 import org.springframework.stereotype.Service;
 
+import br.com.viaapia.geraeds.model.Titulo;
 import br.com.viaapia.geraeds.model.TituloEds;
 import br.com.viaapia.geraeds.util.Marc008Util;
 
@@ -43,12 +44,12 @@ public class MarcService {
         }
     }
 
-    private void addControlFields(Record record, TituloEds tituloEds) {
+    private void addControlFields(Record record, Titulo titulo) {
         MarcFactory factory = MarcFactory.newInstance();
-        record.addVariableField(factory.newControlField("001", tituloEds.getIdTitulo().toString()));
+        record.addVariableField(factory.newControlField("001", titulo.getIdTitulo().toString()));
         record.addVariableField(factory.newControlField("003", "BR-CEUB"));
         record.addVariableField(factory.newControlField("005", LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss.S"))));
-        record.addVariableField(factory.newControlField("008", marc008Util.build008(tituloEds)));
+        record.addVariableField(factory.newControlField("008", marc008Util.build008(titulo)));
     }
 }
