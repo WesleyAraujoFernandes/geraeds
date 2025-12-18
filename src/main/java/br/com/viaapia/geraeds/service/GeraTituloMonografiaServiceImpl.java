@@ -2,17 +2,20 @@ package br.com.viaapia.geraeds.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.viaapia.geraeds.model.TituloEds;
-import br.com.viaapia.geraeds.repository.TituloEdsRepository;
+import br.com.viaapia.geraeds.model.Titulo;
+import br.com.viaapia.geraeds.repository.TituloRepository;
 
 @Service
 public class GeraTituloMonografiaServiceImpl implements GeraTituloMonografiaService {
 
     @Autowired
-    private TituloEdsRepository tituloEdsRepository;
+    private TituloRepository tituloRepository;
+    private static final Logger logger = LoggerFactory.getLogger(GeraTituloMonografiaServiceImpl.class);
 
     @Override
     public Integer gerar(List<Integer> idTitulo) throws IllegalArgumentException {
@@ -20,11 +23,12 @@ public class GeraTituloMonografiaServiceImpl implements GeraTituloMonografiaServ
             throw new IllegalArgumentException("ID do título de monografia não pode ser nulo");
         }
         Integer qtdTitulos = 0;
-        List<TituloEds> titulosEds = tituloEdsRepository.findAll();
-        for (TituloEds tituloEds : titulosEds) {
+        List<Titulo> titulos = tituloRepository.findAll();
+        for (Titulo titulo : titulos) {
+            logger.info("Processando título de monografia: {}", titulo.getTituloMonog());
             qtdTitulos++;
         }
-        System.out.println("Quantidade de registros de monografias: " + qtdTitulos);
+        logger.info("Total de títulos de monografias gerados: {}", qtdTitulos);
         return qtdTitulos;
     }
 
