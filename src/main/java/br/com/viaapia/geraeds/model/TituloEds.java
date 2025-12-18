@@ -8,14 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "titulo_eds")
-@Table(name = "titulo_eds")
+//@Entity(name = "titulo_eds")
+//@Table(name = "titulo_eds")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class TituloEds {
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    // @Id
+    // @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Integer idTitulo;
     private String documentalista;
     private String responsavelAtualizacao;

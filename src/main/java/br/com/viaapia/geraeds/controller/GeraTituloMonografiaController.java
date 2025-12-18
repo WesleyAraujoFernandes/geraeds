@@ -28,10 +28,9 @@ public class GeraTituloMonografiaController {
         }
         if (codigos != null && !codigos.isEmpty()) {
             logger.info("Iniciando geração de títulos de monografias para os códigos: {}", codigos);
-        } else {
-            logger.info("Iniciando geração de títulos de monografias completa.");
         }
-        return this.geraTituloMonografiaService.gerar(codigos);
+        this.geraTituloMonografiaService.gerar(codigos);
+        logger.info("Geração de títulos de monografias completa.");
+        return codigos.size();
     }
-
 }

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Component;
 
+import br.com.viaapia.geraeds.model.Titulo;
 import br.com.viaapia.geraeds.model.TituloEds;
 
 /* Classe utilitária para construção do campo 008 do registro MARC21 */
@@ -12,7 +13,7 @@ import br.com.viaapia.geraeds.model.TituloEds;
 public class Marc008Util {
     private static final DateTimeFormatter YYMMDD = DateTimeFormatter.ofPattern("yyMMdd");
 
-    public String build008(TituloEds titulo) {
+    public String build008(Titulo titulo) {
         StringBuilder sb = new StringBuilder(40);
         /* 00–05: Data de entrada no arquivo (YYMMDD) */
         sb.append(LocalDate.now().format(YYMMDD));
@@ -35,34 +36,34 @@ public class Marc008Util {
         return padOrTrim(sb.toString(), 40);
     }
 
-    private static String resolveDateType(TituloEds titulo) {
+    private static String resolveDateType(Titulo titulo) {
         if (titulo.getAno() != null && titulo.getAno().length() == 4) {
             return "s"; // data única conhecida
         }
         return "u"; // desconhecida
     }
 
-    private static String resolveYear(TituloEds titulo) {
+    private static String resolveYear(Titulo titulo) {
         if (titulo.getAno() != null && titulo.getAno().matches("\\d{4}")) {
             return titulo.getAno();
         }
         return "uuuu";
     }
 
-    private static String resolveCountry(TituloEds titulo) {
+    private static String resolveCountry(Titulo titulo) {
         // BRASIL segundo MARC21
-        if ("Brasil".equalsIgnoreCase(titulo.getProcedencia())) {
+        if ("Brasil".equalsIgnoreCase(titulo.getPais().getStrAbreviacao2())) {
             return "bl ";
         }
         return "xx ";
     }
 
-    private static String resolveLanguage(TituloEds titulo) {
+    private static String resolveLanguage(Titulo titulo) {
         if (titulo.getIdioma() == null) {
             return "und";
         }
 
-        return switch (titulo.getIdioma().toLowerCase()) {
+        return switch (titulo.getIdioma().getStrDescricao().toLowerCase()) {
             case "português", "portugues" -> "por";
             case "inglês", "ingles" -> "eng";
             case "espanhol" -> "spa";

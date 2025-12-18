@@ -23,9 +23,12 @@ public class GeraTituloMonografiaServiceImpl implements GeraTituloMonografiaServ
             throw new IllegalArgumentException("ID do título de monografia não pode ser nulo");
         }
         Integer qtdTitulos = 0;
-        List<Titulo> titulos = tituloRepository.findAll();
+
+        List<Titulo> titulos = tituloRepository.findByIdTituloIn(idTitulo);
+
+        logger.info("Iniciando a geração de títulos de monografias: {}", titulos.size());
         for (Titulo titulo : titulos) {
-            logger.info("Processando título de monografia: {}", titulo.getTituloMonog());
+            logger.info("Processando título de monografia: {}", titulo.getIdTitulo());
             qtdTitulos++;
         }
         logger.info("Total de títulos de monografias gerados: {}", qtdTitulos);

@@ -15,25 +15,26 @@ public class GeraTituloPeridicoServiceImpl implements GeraTituloPeriodicoService
     private static final Logger logger = LoggerFactory.getLogger(GeraTituloMonografiaServiceImpl.class);
 
     @Override
-    public Integer gerar(List<Integer> idTitulo) {
+    public Integer gerar(List<Integer> idTitulos) {
 
-        if (idTitulo == null || idTitulo.isEmpty()) {
+        if (idTitulos == null || idTitulos.isEmpty()) {
             throw new IllegalArgumentException("Lista de códigos não pode ser vazia");
         }
 
-        List<Titulo> titulos = tituloRepository.findByIdTituloIn(idTitulo);
+        List<Titulo> titulos = tituloRepository.findByIdTituloIn(idTitulos);
 
         if (titulos.isEmpty()) {
-            logger.warn("Nenhum título encontrado para os códigos {}", idTitulo);
+            logger.error("Nenhum título encontrado para os códigos {}", idTitulos);
         }
 
         int qtdTitulos = 0;
         for (Titulo titulo : titulos) {
-            logger.info("Processando título de monografia: {}", titulo.getTituloMonog());
+            logger.info("Processando título de monografia: {}", titulo.getTitulo());
+
             qtdTitulos++;
         }
 
-        logger.info("Total de títulos de monografias gerados: {}", qtdTitulos);
+        logger.warn("Total de títulos de monografias gerados: {}", qtdTitulos);
         return qtdTitulos;
     }
 

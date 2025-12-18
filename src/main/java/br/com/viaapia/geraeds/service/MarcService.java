@@ -11,18 +11,18 @@ import org.marc4j.marc.MarcFactory;
 import org.springframework.stereotype.Service;
 
 import br.com.viaapia.geraeds.model.TituloEds;
-import br.com.viaapia.geraeds.repository.TituloEdsRepository;
 import br.com.viaapia.geraeds.util.Marc008Util;
 
 import org.marc4j.marc.Record;
 
 @Service
 public class MarcService {
-    private final TituloEdsRepository tituloEdsRepository;
+    // private final TituloEdsRepository tituloEdsRepository;
     private final Marc008Util marc008Util;
 
-    public MarcService(TituloEdsRepository tituloEdsRepository, Marc008Util marc008Util) {
-        this.tituloEdsRepository = tituloEdsRepository;
+    public MarcService(// TituloEdsRepository tituloEdsRepository,
+            Marc008Util marc008Util) {
+        // this.tituloEdsRepository = tituloEdsRepository;
         this.marc008Util = marc008Util;
     }
 
